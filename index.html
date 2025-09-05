@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ici repose (pour de faux) — Hugo HALOY</title>
+
+  <!-- Webfont proche de la charte -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --rose:#E6007E;        /* Antalis "Rose" */
+      --navy:#000032;        /* Antalis "Stratos" */
+      --rose-soft:#F4BDC2;   /* teinte douce */
+      --ink:#1a1a1a;
+      --bg:#fafafe;
+      --card:#ffffff;
+      --muted:#6b6f76;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,50,.15);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Source Sans Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 80% -100px, rgba(230,0,126,.12), transparent 60%),
+        radial-gradient(900px 500px at -100px 80%, rgba(0,0,50,.08), transparent 60%),
+        var(--bg);
+      line-height:1.6;
+    }
+
+    .wrap{max-width:980px; margin:0 auto; padding:28px 20px 64px}
+
+    /* Header héro */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-radius:calc(var(--radius) + 4px);
+      background:
+        linear-gradient(135deg, var(--rose) 0%, #900050 35%, var(--navy) 100%);
+      color:#fff;
+      padding:64px 28px;
+      box-shadow:var(--shadow);
+      isolation:isolate;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:-40% -20% auto auto;
+      width:750px; height:750px; border-radius:50%;
+      background:radial-gradient(closest-side, rgba(255,255,255,.12), transparent 70%);
+      filter:blur(10px);
+      z-index:-1;
+      opacity:.8;
+      transform:translate(10%, -30%);
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:.6ch;
+      background:#fff; color:var(--navy);
+      padding:.35rem .75rem; border-radius:999px;
+      font-weight:700; letter-spacing:.02em; font-size:.9rem;
+      box-shadow:0 4px 16px rgba(255,255,255,.25), 0 1px 0 rgba(255,255,255,.6) inset;
+    }
+    .badge .dot{
+      width:.6rem; height:.6rem; border-radius:50%;
+      background:var(--rose);
+      box-shadow:0 0 0 4px rgba(230,0,126,.25);
+    }
+    h1{
+      margin:.8rem 0 0;
+      font-size:clamp(2rem, 4vw, 3.2rem);
+      line-height:1.15;
+      letter-spacing:.01em;
+    }
+    .subtitle{
+      margin:.6rem 0 0;
+      font-size:1.15rem;
+      color:#fff; opacity:.9;
+      max-width:52ch;
+    }
+
+    /* Carte principale */
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:28px;
+      margin-top:-24px;
+      box-shadow:var(--shadow);
+      position:relative;
+    }
+    .ribbon{
+      position:absolute; top:-14px; left:24px;
+      background:var(--rose);
+      color:#fff; padding:.25rem .6rem;
+      border-radius:6px;
+      font-weight:700; font-size:.85rem;
+      box-shadow:0 8px 16px rgba(230,0,126,.35);
+      letter-spacing:.03em;
+    }
+    .lead{
+      font-size:1.1rem;
+    }
+    .lead strong{color:var(--navy)}
+    .sep{
+      height:2px; width:100%;
+      background:linear-gradient(90deg, transparent, var(--rose), transparent);
+      margin:18px 0 8px;
+      opacity:.5;
+    }
+
+    /* Grille d’anecdotes */
+    .grid{
+      display:grid; gap:16px;
+      margin-top:16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .tile{
+      background:linear-gradient(180deg, #fff, #fff), linear-gradient(90deg, var(--rose), var(--navy));
+      background-clip:padding-box, border-box;
+      border:1px solid transparent;
+      border-radius:16px;
+      padding:16px 16px 18px;
+    }
+    .tile h3{margin:.2rem 0 .4rem; font-size:1.05rem}
+    .chip{
+      display:inline-block;
+      font-size:.78rem; font-weight:700;
+      color:var(--navy);
+      background:var(--rose-soft);
+      padding:.25rem .55rem; border-radius:999px;
+      border:1px solid rgba(0,0,50,.08);
+    }
+    .muted{color:var(--muted)}
+
+    /* Actions */
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      font-weight:800; letter-spacing:.03em;
+      padding:.9rem 1.1rem; border-radius:12px;
+      transition:transform .06s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+      box-shadow:0 10px 20px rgba(230,0,126,.18);
+    }
+    .btn-primary{
+      background:var(--rose); color:#fff;
+    }
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-ghost{
+      background:#fff; color:var(--navy);
+      border:1px solid rgba(0,0,50,.12)
+    }
+
+    /* Footer */
+    footer{
+      text-align:center; color:var(--muted);
+      margin-top:22px; font-size:.9rem;
+    }
+
+    /* Toast (drop de skin) */
+    .toast{
+      position:fixed; right:18px; bottom:18px;
+      background:#fff; color:var(--ink);
+      border-left:6px solid var(--rose);
+      box-shadow:var(--shadow);
+      padding:12px 14px; border-radius:12px;
+      max-width:320px; display:none;
+    }
+    .toast.show{display:block; animation:pop .2s ease-out, fade .2s ease-out 4s forwards}
+    @keyframes pop{from{transform:translateY(6px); opacity:.0} to{transform:translateY(0); opacity:1}}
+    @keyframes fade{to{opacity:0; transform:translateY(4px)}}
+
+    /* Mode “épopée tragique” */
+    .dramatic .hero{filter:saturate(1.1) contrast(1.05)}
+    .dramatic .card{background:linear-gradient(#fff, #fff) padding-box, radial-gradient(1000px 200px at 0 0, rgba(230,0,126,.25), rgba(0,0,50,.2)) border-box; border:1px solid transparent}
+    .dramatic h1{letter-spacing:.02em; text-shadow:0 8px 30px rgba(0,0,50,.35)}
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <section class="hero" role="banner" aria-label="Annonce très sérieuse mais pas vraiment">
+    <img src="Antalis-logo.png" alt="Logo Antalis" style="height:2.2em;vertical-align:middle;margin-bottom:0.3em;">
+  <h1><img src="Hugo.jpg" alt="Photo d'Hugo" style="height:2.2em;vertical-align:middle;border-radius:50%;margin-right:0.5em">Ici repose Hugo HALOY</h1>
+      <p class="subtitle">Spoiler : il n’est pas mort — il a juste quitté l’entreprise. Mais on prend l’occasion pour écrire l’oraison la plus disproportionnée de 2025.</p>
+    </section>
+  </header>
+
+  <main class="wrap">
+    <article class="card">
+      <span class="ribbon" aria-hidden="true">Hommage officiel*</span>
+
+      <p class="lead">
+        C’est avec une <em>tristesse infinie</em> et une <strong>théâtralité totalement disproportionnée</strong> que nous annonçons que <strong>Hugo HALOY n’est plus parmi nous</strong>.  
+        L’homme derrière les <strong>bannières légendaires des promos e-cust</strong>, le <em>Michelangelo du Photoshop corporate</em>, a quitté nos rangs.
+      </p>
+
+      <div class="sep" aria-hidden="true"></div>
+
+      <p>
+        Depuis l’annonce, la machine à café s’est mise en grève, Master Poulet a fermé ses portes, Figma refuse d’ouvrir sans demander un mot d’excuse, et Share Point affiche : 
+        <code>Hugo_master_final_v10_definitif2.psd — fichier introuvable</code>.  
+        <br>Une ère se termine.
+      </p>
+
+      <section class="grid" aria-label="Exploits authentiques (ou presque)">
+        <div class="tile">
+          <span class="chip">🎨 e-cust</span>
+          <h3>Le seigneur des bannières</h3>
+          <p class="muted">Plus aucun visuel ne surgira de son cerveau impression (nano banana) ; plus aucune ombre portée XXL ne viendra sauver un CTA en détresse.</p>
+        </div>
+        <div class="tile">
+          <span class="chip">🎮 CS skins</span>
+          <h3>Trader impitoyable</h3>
+          <p class="muted">C’était aussi un trader impitoyable de skins sur CS, un stratège des pixels rares. Capable de transformer une pauvre AK safari en un couteau d'une valeur inestimé — légende interne des <em>marketplaces</em>.</p>
+        </div>
+        <div class="tile">
+          <span class="chip">🧪 R&D</span>
+          <h3>Glow™ propriétaire</h3>
+          <p class="muted">On n’a jamais su comment il obtenait ce rose parfait. Probablement un pacte avec la panthère rose.</p>
+        </div>
+        <div class="tile">
+          <span class="chip">📈 Héritage</span>
+          <h3>Bannières éternelles</h3>
+          <p class="muted">Que ses créations flottent pour toujours dans Eloqua, Jahia, et dans nos cœurs (et nos dossiers « archives »).</p>
+        </div>
+      </section>
+
+      <div class="sep" aria-hidden="true"></div>
+
+      <p>
+        <strong>Repose en paix dans ton nouvel open space, Hugo.</strong>  
+        <br>Puissent Steam te bénir de <em><div style="color:#FFD600;display:inline">gold, gold, gold,</div></em> 
+        <br>Tes bannières continuer d’infliger des <abbr title="Taux de clic">Taux de cliques</abbr> improbables.  
+        <br>Nous, pauvres mortels, errerons dans les ténèbres du PPT en ton absence.
+
+      </p>
+
+      <div class="actions" role="group" aria-label="Actions pour se remettre (ou aggraver le drama)">
+        <button class="btn btn-primary" id="btn-drop">🎁 Simuler un <em>skin drop</em></button>
+        <a class="btn btn-ghost" id="btn-drama" href="#!" role="button">🎭 Mode « Épopée tragique »</a>
+        <a class="btn btn-ghost" href="mailto:?subject=Hommage%20%C3%A0%20Hugo&body=Hugo%20%3C3" title="Envoyer un petit mot">💌 Écrire au livre d’or</a>
+      </div>
+
+      <p class="muted" style="margin-top:14px">*Aucun UX n’a été maltraité pendant la rédaction de ce message.</p>
+    </article>
+
+    <footer>
+      <p>Charte : palette et typo inspirées d’Antalis (rose, bleu nuit, sans-sérif). Cette page n’emploie aucun logo ni élément propriétaire.</p>
+    </footer>
+  </main>
+
+  <!-- Toast -->
+  <aside class="toast" id="toast" role="status" aria-live="polite"></aside>
+
+  <script>
+    // Mini "easter egg": un faux drop de skin CS
+    const skins = [
+      "★ Couteau papillon | StatTrak™ (usé) — +214 %",
+      "AWP | Dragon Lore (mythique, dans nos rêves) — +∞ %",
+      "AK-47 | Feu roulant (presque neuve) — +73 %",
+      "M4A1-S | Imitation (neuve de stock) — +41 %",
+      "Desert Eagle | Printstream (miroir cosmique) — +92 %"
+    ];
+    const toast = document.getElementById('toast');
+    document.getElementById('btn-drop').addEventListener('click', () => {
+      const pick = skins[Math.floor(Math.random()*skins.length)];
+      toast.innerHTML = `<strong>Drop légendaire !</strong><br>${pick}`;
+      toast.classList.remove('show');
+      // retrigger animation
+      void toast.offsetWidth;
+      toast.classList.add('show');
+    });
+
+    // Toggle mode dramatique
+    const root = document.documentElement;
+    document.getElementById('btn-drama').addEventListener('click', (e)=>{
+      e.preventDefault();
+      document.body.classList.toggle('dramatic');
+    });
+
+    // Accessibilité init : annonce la page avec humour (facultatif)
+    setTimeout(()=>{
+      const msg = document.createElement('div');
+      msg.className = 'toast show';
+      msg.style.bottom = '86px';
+      msg.innerHTML = "<strong>Breaking</strong><br>Hugo n’est pas décédé, il a juste rage-quit vers un nouvel horizon pro. 🎉";
+      document.body.appendChild(msg);
+      setTimeout(()=> msg.remove(), 5000);
+    }, 400);
+  </script>
+</body>
+</html>
